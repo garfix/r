@@ -61,7 +61,7 @@ class RQuantifiable
 	 */
 	public function atMost($max)
 	{
-		$this->min = $max == 0 ? 0 : 1;
+		$this->min = 0;
 		$this->max = $max;
 		return $this;
 	}
@@ -72,6 +72,16 @@ class RQuantifiable
 	public function oneOrMore()
 	{
 		$this->min = 1;
+		$this->max = null;
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function zeroOrMore()
+	{
+		$this->min = 0;
 		$this->max = null;
 		return $this;
 	}
@@ -110,12 +120,12 @@ class RQuantifiable
 	 */
 	protected function getModifierString()
 	{
-		if ($this->min == 0) {
-			if ($this->max == 0) {
+		if ($this->min === 0) {
+			if ($this->max === 0) {
 				$exp = "{0}";
 			} elseif ($this->max == 1) {
 				$exp = "?";
-			} elseif ($this->max === 0) {
+			} elseif ($this->max === null) {
 				$exp = "*";
 			} else {
 				$exp = "{" . $this->min . "," . $this->max . "}";
@@ -129,6 +139,8 @@ class RQuantifiable
 				$exp = "{" . $this->min . "," . $this->max . "}";
 			}
 
+		} elseif ($this->min == $this->max) {
+			$exp = "{" . $this->min . "}";
 		} else {
 			$exp = "{" . $this->min . "," . $this->max . "}";
 		}

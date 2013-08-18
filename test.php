@@ -11,6 +11,7 @@ function test($expected, $got)
 
 require_once __DIR__ . '/tests/expressions.php';
 require_once __DIR__ . '/tests/modifiers.php';
+require_once __DIR__ . '/tests/quantifiers.php';
 require_once __DIR__ . '/tests/groups.php';
 require_once __DIR__ . '/tests/characters.php';
 require_once __DIR__ . '/tests/lookbehind.php';
