@@ -55,3 +55,18 @@ echo R::expression()
 		R::group('url')
 			->char(R::anyChar()->zeroOrMore())
 	) . "\n";
+
+// Multiline expressions
+//
+// /^start\s+(^the)\s+show$/m
+//
+echo R::multiLineExpression()
+	->startOfStringOrLine()
+	->text('start')
+	->whitespace()
+	->group(
+		R::group()->startOfLine()->text('the')
+	)
+	->whitespace()
+	->text('show')
+	->endOfStringOrLine() . "\n";

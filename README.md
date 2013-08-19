@@ -2,6 +2,8 @@
 
 r Is a PHP library to build regular expressions.
 
+It is written for PHP 5
+
 ## Examples
 
 These examples can also be found in the file 'examples.php'.
@@ -57,9 +59,25 @@ These examples can also be found in the file 'examples.php'.
 		->group(
 			R::group('url')
 				->char(R::anyChar()->zeroOrMore())
-		) . "\n";
+		)
+
+### Multiline expression
+
+` /^start\s+(^the)\s+show$/m `
+
+	R::multiLineExpression()
+		->startOfStringOrLine()
+		->text('start')
+		->whitespace()
+		->group(
+			R::group()->startOfLine()->text('the')
+		)
+		->whitespace()
+		->text('show')
+		->endOfStringOrLine()
+
 
 Credits
 =======
 The credits for the idea of creating a regular expression builder go to [VerbalExpressions](https://github.com/VerbalExpressions/JSVerbalExpressions).
-It is a fascinating idea and I wanted to see how far it could go. So I set out to create a more powerful version.
+It is a fascinating idea and I wanted to see how far it could go.

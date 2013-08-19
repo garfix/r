@@ -133,6 +133,26 @@ class RGroup extends RQuantifiable
 		return $this;
 	}
 
+	/**
+	 * Convenience method to match 1 or more whitespace characters.
+	 * @return $this
+	 */
+	public function whitespace()
+	{
+		$this->elements[] = '\\s+';
+		return $this;
+	}
+
+	/**
+	 * Convenience method to match 0 or more whitespace characters.
+	 * @return $this
+	 */
+	public function optionalWhitespace()
+	{
+		$this->elements[] = '\\s*';
+		return $this;
+	}
+
 	/* -- end shared with RExpression -- */
 
 	/**

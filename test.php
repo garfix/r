@@ -15,3 +15,4 @@ require_once __DIR__ . '/tests/quantifiers.php';
 require_once __DIR__ . '/tests/groups.php';
 require_once __DIR__ . '/tests/characters.php';
 require_once __DIR__ . '/tests/lookbehind.php';
+require_once __DIR__ . '/tests/special.php';

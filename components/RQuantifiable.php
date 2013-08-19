@@ -87,31 +87,25 @@ class RQuantifiable
 	}
 
 	/**
+	 * Match as little characters as possible.
+	 *
 	 * @return $this
 	 */
-	public function asFewAsPossible()
+	public function lazy()
 	{
 		$this->greed = 'lazy';
 		return $this;
 	}
 
 	/**
+	 * Match as much characters as possible,
+	 * even if this means that no match can be made.
+	 *
 	 * @return $this
 	 */
-	public function asMuchAsPossibleWhileStillMatching()
-	{
-		$this->greed = 'greedy';
-		$this->max = null;
-		return $this;
-	}
-
-	/**
-	 * @return $this
-	 */
-	public function asMuchAsPossible()
+	public function possessive()
 	{
 		$this->greed = 'possessive';
-		$this->max = null;
 		return $this;
 	}
 
@@ -146,9 +140,13 @@ class RQuantifiable
 		}
 
 		if ($this->greed == 'possessive') {
-			$exp .= '+';
+			if ($this->max !== $this->min) {
+				$exp .= '+';
+			}
 		} elseif ($this->greed == 'lazy') {
-			$exp .= '?';
+			if ($this->max !== $this->min) {
+				$exp .= '?';
+			}
 		}
 
 		return $exp;
