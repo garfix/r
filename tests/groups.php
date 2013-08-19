@@ -59,3 +59,11 @@ test('/(^)/',
 test('/($)/',
 	R::expression()->group(R::group()->endOfLine())
 );
+
+// backReference
+test('/(abc) \1/',
+	R::expression()
+		->group(R::group()->text('abc'))
+		->text(' ')
+		->backReference(1)
+);

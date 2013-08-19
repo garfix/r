@@ -153,6 +153,16 @@ class RGroup extends RQuantifiable
 		return $this;
 	}
 
+	/**
+	 * @param int $index The index of a captured group the the expression
+	 * @return $this
+	 */
+	public function backReference($index)
+	{
+		$this->elements[] = '\\' . $index;
+		return $this;
+	}
+
 	/* -- end shared with RExpression -- */
 
 	/**

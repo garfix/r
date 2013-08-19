@@ -65,3 +65,11 @@ test('/\Z/m',
 test('/\z/m',
 	R::multiLineExpression()->endOfStringOrNewlineAtEnd()
 );
+
+// backReference
+test('/(abc) \1/',
+	R::expression()
+		->group(R::group()->text('abc'))
+		->text(' ')
+		->backReference(1)
+);
