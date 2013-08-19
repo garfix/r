@@ -40,6 +40,21 @@ These examples can also be found in the file 'examples.php'.
 		->text('ee')
 		->char(R::anyChar()->zeroOrMore())
 
+### Nested groups
+
+` /(<a href='([^']*)'>)/ `
+
+	R::expression()
+		->group(
+			R::group()
+				->text("<a href='")
+				->group(
+					R::group()
+						->notInChars(R::chars("'")->zeroOrMore())
+				)
+				->text("'>")
+		)
+
 ### Assertions
 
 ` /\bkettle\b/ `

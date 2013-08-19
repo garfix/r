@@ -34,6 +34,20 @@ echo R::expression()
 	->text('ee')
 	->char(R::anyChar()->zeroOrMore()) . "\n";
 
+// Nested groups
+//
+// /(<a href='([^']*)'>)/
+echo R::expression()
+	->group(
+		R::group()
+			->text("<a href='")
+			->group(
+				R::group()
+					->notInChars(R::chars("'")->zeroOrMore())
+			)
+			->text("'>")
+	) . "\n";
+
 // Assertions
 //
 // /\bkettle\b/
