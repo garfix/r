@@ -22,6 +22,18 @@ echo R::expression()
 	)
 	->text('basket fell off the roof') . "\n";
 
+// Characters
+//
+// /the [bc]?old man and the [^c]ee.*/
+//
+echo R::expression()
+	->text('the ')
+	->inChars(R::chars('bc')->optional())
+	->text('old man and the ')
+	->notInChars(R::chars('c'))
+	->text('ee')
+	->char(R::anyChar()->zeroOrMore()) . "\n";
+
 // Assertions
 //
 // /\bkettle\b/
@@ -70,3 +82,17 @@ echo R::multiLineExpression()
 	->whitespace()
 	->text('show')
 	->endOfStringOrLine() . "\n";
+
+// Characters
+
+// Look ahead, look behind
+//
+// /(?<=Lord )(Byron)/
+//
+echo R::expression()
+	->lookBehind(
+		R::lookBehind()->text('Lord ')
+	)
+	->group(
+		R::group()->text('Byron')
+	) . "\n";

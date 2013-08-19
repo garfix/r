@@ -1,8 +1,8 @@
-# r -- Regular Expression Builder (PHP)
+# r - Regular Expression Builder (PHP)
 
 r Is a PHP library to build regular expressions.
 
-It is written for PHP 5
+It is written for PHP 5 and it handles PCRE patterns in a fairly advanced level, but it does not cover the complete specification.
 
 ## Examples
 
@@ -27,6 +27,18 @@ These examples can also be found in the file 'examples.php'.
 			R::group()->optional()->oneOfThese()->text('dog')->text('cat')
 		)
 		->text('basket fell off the roof')
+
+### Characters
+
+` /the [bc]?old man and the [^c]ee.*/ `
+
+	R::expression()
+		->text('the ')
+		->inChars(R::chars('bc')->optional())
+		->text('old man and the ')
+		->notInChars(R::chars('c'))
+		->text('ee')
+		->char(R::anyChar()->zeroOrMore())
 
 ### Assertions
 
@@ -76,8 +88,20 @@ These examples can also be found in the file 'examples.php'.
 		->text('show')
 		->endOfStringOrLine()
 
+### Look behind, look ahead
+
+` /(?<=Lord )(Byron)/ `
+
+	R::expression()
+	    ->lookBehind(
+	        R::lookBehind()->text('Lord ')
+	    )
+	    ->group(
+	        R::group()->text('Byron')
+	    )
+
 
 Credits
 =======
 The credits for the idea of creating a regular expression builder go to [VerbalExpressions](https://github.com/VerbalExpressions/JSVerbalExpressions).
-It is a fascinating idea and I wanted to see how far it could go.
+It is a fascinating idea and I wanted to see how far it could go. I chose a different type of implementation base on nested fluid interface calls.
