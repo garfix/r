@@ -97,8 +97,6 @@ echo R::multiLineExpression()
 	->text('show')
 	->endOfStringOrLine() . "\n";
 
-// Characters
-
 // Look ahead, look behind
 //
 // /(?<=Lord )(Byron)/
@@ -110,3 +108,16 @@ echo R::expression()
 	->group(
 		R::group()->text('Byron')
 	) . "\n";
+
+// Include raw expressions
+//
+// #(?P<protocol>https?)://(?P<url>.*)#
+//
+echo R::expression()
+	->group(
+		R::group('protocol')->raw('https?')
+	)
+	->text('://')
+	->group(
+		R::group('url')->raw('.*')
+	);

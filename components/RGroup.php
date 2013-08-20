@@ -45,7 +45,20 @@ class RGroup extends RQuantifiable
 	 */
 	public function text($text)
 	{
-		$this->elements[] = $text;
+		$escape = preg_replace('/([\\\\\\^\\$\\.\\[\\]\\|\\(\\)\\?\\*\\+\\{\\}])/', '\\\\$1', $text);
+
+		$this->elements[] = $escape;
+		return $this;
+	}
+
+	/**
+	 * Add an expression as it would be typed in a regular expression.
+	 * @param $text
+	 * @return $this
+	 */
+	public function raw($expression)
+	{
+		$this->elements[] = $expression;
 		return $this;
 	}
 

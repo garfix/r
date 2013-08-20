@@ -27,7 +27,7 @@ test('/(master|maestro|mister)/',
 	R::expression()->group(R::group()->oneOfThese()->text('master')->text('maestro')->text('mister'))
 );
 test('/(master|maestro|mister)/',
-	R::expression()->text('(master|maestro|mister)')
+	R::expression()->raw('(master|maestro|mister)')
 );
 
 // quantifier: optional
