@@ -142,4 +142,4 @@ Then write parts of the expression in the old style:
 Credits
 =======
 The credits for the idea of creating a regular expression builder go to [VerbalExpressions](https://github.com/VerbalExpressions/JSVerbalExpressions).
-It is a fascinating idea and I wanted to see how far it could go. I chose a different type of implementation base on nested fluid interface calls.
+It is a fascinating idea and I wanted to see how far it could go. I chose a different type of implementation based on nested fluid interface calls.
