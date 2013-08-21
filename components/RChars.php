@@ -12,33 +12,42 @@ class RChars extends RCharBase
 	protected $not = false;
 
 	/**
-	 * @param $args
+	 * Set one or more characters,
+	 * either plain characters or escape sequences (like \n)
+	 *
+	 * @param string $chars
 	 */
 	public function __construct($chars)
 	{
 		$this->chars = $chars;
 	}
 
+	/**
+	 * Match characters _not_ in this set.
+	 * This method is called for you by RExpression::notInChars and RGroup::notInChars
+	 */
 	public function not()
 	{
 		$this->not = true;
 	}
 
 	/**
-	 * @param $char
-	 * @return RChars
+	 * Add one or more characters,
+	 * either plain characters or escape sequences (like \n)
+	 *
+	 * @param string $chars
+	 * @return $this
 	 */
-	public function char($char)
+	public function char($chars)
 	{
-		$this->chars .= $char;
+		$this->chars .= $chars;
 		return $this;
 	}
 
 	/**
-	 * Any of \t \n \r \f
+	 * Match any of \t \n \r \f
 	 *
-	 * @param $char
-	 * @return RChars
+	 * @return $this
 	 */
 	public function whitespace()
 	{
@@ -47,10 +56,9 @@ class RChars extends RCharBase
 	}
 
 	/**
-	 * Anything but of \t \n \r \f
+	 * Match anything but of \t \n \r \f
 	 *
-	 * @param $char
-	 * @return RChars
+	 * @return $this
 	 */
 	public function anythingButWhitespace()
 	{
@@ -59,9 +67,9 @@ class RChars extends RCharBase
 	}
 
 	/**
-	 * Letter: a-z and A-Z
+	 * Match a letter (either uppercase or lowercase): a-z and A-Z
 	 *
-	 * @return RChars
+	 * @return $this
 	 */
 	public function letter()
 	{
@@ -70,9 +78,9 @@ class RChars extends RCharBase
 	}
 
 	/**
-	 * 0-9
+	 * Match a digit (0-9)
 	 *
-	 * @return RChars
+	 * @return $this
 	 */
 	public function digit()
 	{
@@ -81,9 +89,9 @@ class RChars extends RCharBase
 	}
 
 	/**
-	 * Any character except 0-9
+	 * Match any character except a digit (0-9)
 	 *
-	 * @return RChars
+	 * @return $this
 	 */
 	public function anythingButDigit()
 	{
@@ -92,9 +100,9 @@ class RChars extends RCharBase
 	}
 
 	/**
-	 * Letter or digit or underscore
+	 * Match a letter or digit or underscore character
 	 *
-	 * @return RChars
+	 * @return $this
 	 */
 	public function wordCharacter()
 	{
@@ -103,9 +111,9 @@ class RChars extends RCharBase
 	}
 
 	/**
-	 * Anything but letter or digit or underscore
+	 * Match anything but a letter or digit or underscore
 	 *
-	 * @return RChars
+	 * @return $this
 	 */
 	public function anythingButWordCharacter()
 	{

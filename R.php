@@ -1,6 +1,5 @@
 <?php
 
-require_once __DIR__ . '/components/RText.php';
 require_once __DIR__ . '/components/RChars.php';
 require_once __DIR__ . '/components/RAnyChar.php';
 require_once __DIR__ . '/components/RGroup.php';
@@ -63,15 +62,6 @@ class R
 	public static function anyChar()
 	{
 		return new RAnyChar();
-	}
-
-	/**
-	 * @param $text
-	 * @return RText
-	 */
-	public static function text($text)
-	{
-		return new RText($text);
 	}
 
 	/**

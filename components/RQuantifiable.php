@@ -12,6 +12,8 @@ class RQuantifiable
 	protected $max = 1;
 
 	/**
+	 * Match either once or not at all.
+	 *
 	 * @return $this
 	 */
 	public function optional()
@@ -22,6 +24,8 @@ class RQuantifiable
 	}
 
 	/**
+	 * Match between $min and $max times, inclusive.
+	 *
 	 * @param $min
 	 * @param $max
 	 * @return $this
@@ -34,6 +38,8 @@ class RQuantifiable
 	}
 
 	/**
+	 * Match at lewst $min times.
+	 *
 	 * @param $min
 	 * @return $this
 	 */
@@ -45,17 +51,21 @@ class RQuantifiable
 	}
 
 	/**
-	 * @param $min
+	 * Match exactly $number times.
+	 *
+	 * @param $number
 	 * @return $this
 	 */
-	public function times($min)
+	public function times($number)
 	{
-		$this->min = $min;
-		$this->max = $min;
+		$this->min = $number;
+		$this->max = $number;
 		return $this;
 	}
 
 	/**
+	 * Match at most $max times.
+	 *
 	 * @param $max
 	 * @return $this
 	 */
@@ -67,6 +77,8 @@ class RQuantifiable
 	}
 
 	/**
+	 * Match one or more times.
+	 *
 	 * @return $this
 	 */
 	public function oneOrMore()
@@ -77,6 +89,8 @@ class RQuantifiable
 	}
 
 	/**
+	 * Don't match at all, or any number of times.
+	 *
 	 * @return $this
 	 */
 	public function zeroOrMore()
@@ -87,7 +101,7 @@ class RQuantifiable
 	}
 
 	/**
-	 * Match as little characters as possible.
+	 * Match as little characters as possible while still making a match.
 	 *
 	 * @return $this
 	 */

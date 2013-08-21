@@ -40,7 +40,9 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
-	 * @param $text
+	 * Match a string of plain text.
+	 *
+	 * @param string $text
 	 * @return $this
 	 */
 	public function text($text)
@@ -53,7 +55,8 @@ class RGroup extends RQuantifiable
 
 	/**
 	 * Add an expression as it would be typed in a regular expression.
-	 * @param $text
+	 *
+	 * @param string $expression
 	 * @return $this
 	 */
 	public function raw($expression)
@@ -63,6 +66,8 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
+	 * Match one of the characters specified in $Chars.
+	 *
 	 * @param RChars $Chars
 	 * @return $this
 	 */
@@ -73,6 +78,8 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
+	 * Match one of the characters _not_ specified in $Chars.
+	 *
 	 * @param RChars $Chars
 	 * @return $this
 	 */
@@ -84,7 +91,11 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
-	 * @param RCharBase $Chars
+	 * Match one of the characters specified in $Chars.
+	 * Alternative wording for self::inChars() to express the fact that
+	 * you will be using just a single character.
+	 *
+	 * @param RCharBase $Chars Either RAnyChar or RChars
 	 * @return $this
 	 */
 	public function char(RCharBase $Chars)
@@ -106,7 +117,7 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
-	 * The cursor is not at a @see RGroup::wordBoundary
+	 * The cursor is not at a @see RChars::wordBoundary
 	 *
 	 * @return $this
 	 */
@@ -117,6 +128,8 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
+	 * Start a subpattern.
+	 *
 	 * @param RGroup $Group
 	 * @return $this
 	 */
@@ -127,6 +140,9 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
+	 * Assert that the expression $LookAhead is matched _after_ the cursor,
+	 * but do not "eat" it.
+	 *
 	 * @param RLookAhead $LookAhead
 	 * @return $this;
 	 */
@@ -137,6 +153,9 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
+	 * Assert that the expression $LookBehind is matched _before_ the cursor,
+	 * but do not "eat" it.
+	 *
 	 * @param RLookBehind $LookBehind
 	 * @return $this;
 	 */
@@ -148,6 +167,7 @@ class RGroup extends RQuantifiable
 
 	/**
 	 * Convenience method to match 1 or more whitespace characters.
+	 *
 	 * @return $this
 	 */
 	public function whitespace()
@@ -158,6 +178,7 @@ class RGroup extends RQuantifiable
 
 	/**
 	 * Convenience method to match 0 or more whitespace characters.
+	 *
 	 * @return $this
 	 */
 	public function optionalWhitespace()
@@ -167,6 +188,8 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
+	 * Match the same characters as matched by the $index-th subpattern (group).
+	 *
 	 * @param int $index The index of a captured group the the expression
 	 * @return $this
 	 */
@@ -190,7 +213,7 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
-	 * Asserts start of line.
+	 * Asserts end of line.
 	 *
 	 * @return $this
 	 */
@@ -201,7 +224,7 @@ class RGroup extends RQuantifiable
 	}
 
 	/**
-	 * Make this group 'non-capturing', i.e. it will not end up in the match results.
+	 * Make this group 'non-capturing', i.e. it will not end up in the search results.
 	 *
 	 * @return RGroup
 	 */
@@ -211,6 +234,11 @@ class RGroup extends RQuantifiable
 		return $this;
 	}
 
+	/**
+	 * Returns the prefix of the expression, based on its type.
+	 *
+	 * @return string
+	 */
 	protected function getPrefix()
 	{
 		if (!$this->capture) {

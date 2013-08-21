@@ -8,6 +8,8 @@ require_once __DIR__ . '/RExpression.php';
 class RSingleLineExpression extends RExpression
 {
 	/**
+	 * Asserts that cursor is at the start of the string.
+	 *
 	 * @return $this
 	 */
 	public function startOfString()
@@ -17,6 +19,8 @@ class RSingleLineExpression extends RExpression
 	}
 
 	/**
+	 * Asserts that cursor is at the end of the string.
+	 *
 	 * @return $this
 	 */
 	public function endOfString()

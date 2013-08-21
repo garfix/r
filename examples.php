@@ -120,4 +120,4 @@ echo R::expression()
 	->text('://')
 	->group(
 		R::group('url')->raw('.*')
-	);
+	) . "\n";

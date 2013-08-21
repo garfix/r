@@ -28,7 +28,9 @@ class RExpression
 	}
 
 	/**
-	 * @param $text
+	 * Match a string of plain text.
+	 *
+	 * @param string $text
 	 * @return $this
 	 */
 	public function text($text)
@@ -41,7 +43,8 @@ class RExpression
 
 	/**
 	 * Add an expression as it would be typed in a regular expression.
-	 * @param $text
+	 *
+	 * @param string $expression
 	 * @return $this
 	 */
 	public function raw($expression)
@@ -51,6 +54,8 @@ class RExpression
 	}
 
 	/**
+	 * Match one of the characters specified in $Chars.
+	 *
 	 * @param RChars $Chars
 	 * @return $this
 	 */
@@ -61,6 +66,8 @@ class RExpression
 	}
 
 	/**
+	 * Match one of the characters _not_ specified in $Chars.
+	 *
 	 * @param RChars $Chars
 	 * @return $this
 	 */
@@ -72,7 +79,11 @@ class RExpression
 	}
 
 	/**
-	 * @param RCharBase $Chars
+	 * Match one of the characters specified in $Chars.
+	 * Alternative wording for self::inChars() to express the fact that
+	 * you will be using just a single character.
+	 *
+	 * @param RCharBase $Chars Either RAnyChar or RChars
 	 * @return $this
 	 */
 	public function char(RCharBase $Chars)
@@ -105,6 +116,8 @@ class RExpression
 	}
 
 	/**
+	 * Start a subpattern.
+	 *
 	 * @param RGroup $Group
 	 * @return $this
 	 */
@@ -115,6 +128,9 @@ class RExpression
 	}
 
 	/**
+	 * Assert that the expression $LookAhead is matched _after_ the cursor,
+	 * but do not "eat" it.
+	 *
 	 * @param RLookAhead $LookAhead
 	 * @return $this;
 	 */
@@ -125,6 +141,9 @@ class RExpression
 	}
 
 	/**
+	 * Assert that the expression $LookBehind is matched _before_ the cursor,
+	 * but do not "eat" it.
+	 *
 	 * @param RLookBehind $LookBehind
 	 * @return $this;
 	 */
@@ -136,6 +155,7 @@ class RExpression
 
 	/**
 	 * Convenience method to match 1 or more whitespace characters.
+	 *
 	 * @return $this
 	 */
 	public function whitespace()
@@ -146,6 +166,7 @@ class RExpression
 
 	/**
 	 * Convenience method to match 0 or more whitespace characters.
+	 *
 	 * @return $this
 	 */
 	public function optionalWhitespace()
@@ -155,6 +176,8 @@ class RExpression
 	}
 
 	/**
+	 * Match the same characters as matched by the $index-th subpattern (group).
+	 *
 	 * @param int $index The index of a captured group the the expression
 	 * @return $this
 	 */
@@ -170,7 +193,7 @@ class RExpression
 	 * Expert use: add a modifier by its letter.
 	 * See also: http://nl3.php.net/manual/en/reference.pcre.pattern.modifiers.php
 	 *
-	 * @param $modifier
+	 * @param string $modifier A single character
 	 * @return $this
 	 */
 	public function modify($modifier)
@@ -180,6 +203,8 @@ class RExpression
 	}
 
 	/**
+	 * Match all letters in this expression case insensitive,
+	 *
 	 * @return $this
 	 */
 	public function modifyCaseInsensitive()
@@ -189,7 +214,7 @@ class RExpression
 	}
 
 	/**
-	 * If used, the character . does not match \n
+	 * If used, the "any char" (.) does not match \n
 	 *
 	 * @return $this
 	 */
@@ -215,19 +240,24 @@ class RExpression
 	 */
 	public function __toString()
 	{
-		$separators = '/#%~`&';
+		$delimiters = '/#%~`&';
 		$delimiter = $this->alt ? '|' : '';
 
 		$exp = implode($delimiter, $this->elements);
 
-		$separator = '/';
-		for ($i = 0; $i < strlen($separators); $i++) {
-			$separator = $separators[$i];
-			if (strpos($exp, $separator) === false) {
+		$selectedDelimiter = null;
+		for ($i = 0; $i < strlen($delimiters); $i++) {
+			$delimiter = $delimiters[$i];
+			if (strpos($exp, $delimiter) === false) {
+				$selectedDelimiter = $delimiter;
 				break;
 			}
 		}
 
-		return $separator . $exp . $separator . $this->modifiers;
+		if ($selectedDelimiter === null) {
+			trigger_error('Cannot find a suitable delimiter', E_USER_ERROR);
+		}
+
+		return $delimiter . $exp . $delimiter . $this->modifiers;
 	}
 }

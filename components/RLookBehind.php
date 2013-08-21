@@ -14,6 +14,8 @@ class RLookBehind extends RGroup
 	}
 
 	/**
+	 * Do _not_ match the contents of this look ahead.
+	 *
 	 * @return $this
 	 */
 	public function negative()
@@ -22,6 +24,11 @@ class RLookBehind extends RGroup
 		return $this;
 	}
 
+	/**
+	 * Returns the prefix of the expression, based on its type.
+	 *
+	 * @return string
+	 */
 	protected function getPrefix()
 	{
 		return $this->positive ? '?<=' : '?<!';
